@@ -3,25 +3,6 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "toonedataflow_01",
-				"type": "ExecuteDataFlow",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"dataflow": {
-						"referenceName": "toonedataflow_01",
-						"type": "DataFlowReference"
-					}
-				}
-			},
-			{
 				"name": "cosmosdb_mongodbapi_01",
 				"type": "Copy",
 				"dependsOn": [],
