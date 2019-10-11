@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "toonedatafactory"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"value": ""
+		},
+		"CosmosDbMongoDbApi1_connectionString": {
+			"value": ""
+		},
+		"toonebloblink_connectionString": {
+			"value": ""
+		},
+		"toonesqldblink_connectionString": {
+			"value": ""
+		},
+		"CosmosDbMongoDbApi1_properties_typeProperties_database": {
+			"value": "toonecosmosdb"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
