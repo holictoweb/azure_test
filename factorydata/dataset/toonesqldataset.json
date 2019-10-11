@@ -1,0 +1,12 @@
+{
+	"name": "toonesqldataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "toonesqldblink",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}
