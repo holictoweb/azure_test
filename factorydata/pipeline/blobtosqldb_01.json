@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "blobtosqldb_01",
 	"properties": {
 		"activities": [
 			{
