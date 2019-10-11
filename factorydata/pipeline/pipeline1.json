@@ -26,8 +26,7 @@
 						}
 					},
 					"sink": {
-						"type": "AzureSqlSink",
-						"tableOption": "autoCreate"
+						"type": "AzureSqlSink"
 					},
 					"enableStaging": false,
 					"translator": {
@@ -39,8 +38,8 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "Date",
-									"type": "String"
+									"name": "date",
+									"type": "DateTime"
 								}
 							},
 							{
@@ -49,7 +48,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "High",
+									"name": "high",
 									"type": "String"
 								}
 							},
@@ -59,7 +58,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "Low",
+									"name": "low",
 									"type": "String"
 								}
 							},
@@ -69,7 +68,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "Open",
+									"name": "open",
 									"type": "String"
 								}
 							},
@@ -79,7 +78,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "Close",
+									"name": "close",
 									"type": "String"
 								}
 							},
@@ -89,7 +88,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "Volume",
+									"name": "volume",
 									"type": "String"
 								}
 							},
@@ -99,7 +98,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "Adj Close",
+									"name": "adj close",
 									"type": "String"
 								}
 							}
