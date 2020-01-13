@@ -6,26 +6,6 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "toonedf"
-		},
-		"tooneadls2_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'tooneadls2'"
-		},
-		"toonefilesystem_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'toonefilesystem'"
-		},
-		"tooneadls2_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://toonestorage02.dfs.core.windows.net"
-		},
-		"toonefilesystem_properties_typeProperties_host": {
-			"type": "string",
-			"defaultValue": "E:\\Data\\"
-		},
-		"toonefilesystem_properties_typeProperties_userId": {
-			"type": "string",
-			"defaultValue": "admin_orange"
 		}
 	},
 	"variables": {
@@ -303,9 +283,7 @@
 					}
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/tooneadls2')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/BinaryDataDestination1')]",
@@ -344,9 +322,7 @@
 					}
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/tooneadls2')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/BinaryDataSource_File')]",
@@ -386,9 +362,7 @@
 					}
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/toonefilesystem')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/BinaryDataSource_File1')]",
@@ -427,43 +401,7 @@
 					}
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/toonefilesystem')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/BinaryDataSource_Folder')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "It describes the folder in the data source store.",
-				"linkedServiceName": {
-					"referenceName": "toonefilesystem",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"FolderPath": {
-						"type": "String"
-					},
-					"Directory": {
-						"type": "String"
-					}
-				},
-				"annotations": [],
-				"type": "Binary",
-				"typeProperties": {
-					"location": {
-						"type": "FileServerLocation",
-						"folderPath": {
-							"value": "@concat(dataset().FolderPath,'/',dataset().Directory)",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/toonefilesystem')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/BinaryDataSource_Folder1')]",
@@ -494,105 +432,6 @@
 						}
 					}
 				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/toonefilesystem')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/sinktoonejson')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "tooneadls2",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Json",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "migrationdata",
-						"fileSystem": "toonedatafactory"
-					}
-				},
-				"schema": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/tooneadls2')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/sourcetoonejson')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "toonefilesystem",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Json",
-				"typeProperties": {
-					"location": {
-						"type": "FileServerLocation"
-					}
-				},
-				"schema": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/toonefilesystem')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/tooneadls2')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('tooneadls2_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "SecureString",
-						"value": "[parameters('tooneadls2_accountKey')]"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/toonefilesystem')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "FileServer",
-				"typeProperties": {
-					"host": "[parameters('toonefilesystem_properties_typeProperties_host')]",
-					"userId": "[parameters('toonefilesystem_properties_typeProperties_userId')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('toonefilesystem_password')]"
-					}
-				},
-				"connectVia": {
-					"referenceName": "tooneselfir",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/tooneselfir')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/tooneselfir')]",
-			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "SelfHosted",
-				"typeProperties": {}
 			},
 			"dependsOn": []
 		}

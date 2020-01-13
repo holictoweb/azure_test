@@ -71,6 +71,49 @@
 				},
 				"parameters": {
 					"Container": {
+						"type": "String",
+						"defaultValue": "toonedatafactory"
+					},
+					"Directory": {
+						"type": "String",
+						"defaultValue": "migrationdata"
+					},
+					"filename": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": {
+							"value": "@{dataset().Directory}",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@{dataset().Container}",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/tooneadls2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/BinaryDataDestination1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "It describes the destination store.",
+				"linkedServiceName": {
+					"referenceName": "tooneadls2",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"Container": {
 						"type": "String"
 					},
 					"Directory": {
@@ -163,6 +206,48 @@
 						"type": "String"
 					},
 					"Directory": {
+						"type": "String",
+						"defaultValue": "source"
+					},
+					"filename": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation",
+						"fileName": {
+							"value": "@dataset().filename",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@concat(dataset().FolderPath,'/',dataset().Directory)",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/toonefilesystem')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/BinaryDataSource_File1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "It describes the file in the data source store.",
+				"linkedServiceName": {
+					"referenceName": "toonefilesystem",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"FolderPath": {
+						"type": "String"
+					},
+					"Directory": {
 						"type": "String"
 					},
 					"filename": {
@@ -191,6 +276,40 @@
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/BinaryDataSource_Folder')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "It describes the folder in the data source store.",
+				"linkedServiceName": {
+					"referenceName": "toonefilesystem",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"FolderPath": {
+						"type": "String"
+					},
+					"Directory": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation",
+						"folderPath": {
+							"value": "@concat(dataset().FolderPath,'/',dataset().Directory)",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/toonefilesystem')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/BinaryDataSource_Folder1')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -267,7 +386,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"dataset": {
-								"referenceName": "BinaryDataSource_Folder",
+								"referenceName": "BinaryDataSource_Folder1",
 								"type": "DatasetReference",
 								"parameters": {
 									"FolderPath": {
@@ -285,8 +404,7 @@
 							],
 							"storeSettings": {
 								"type": "FileServerReadSettings",
-								"recursive": true,
-								"modifiedDatetimeStart": "2019-03-06T00:00:00.000Z"
+								"recursive": true
 							}
 						}
 					},
@@ -343,7 +461,7 @@
 									},
 									"inputs": [
 										{
-											"referenceName": "BinaryDataSource_File",
+											"referenceName": "BinaryDataSource_File1",
 											"type": "DatasetReference",
 											"parameters": {
 												"FolderPath": {
@@ -363,7 +481,7 @@
 									],
 									"outputs": [
 										{
-											"referenceName": "BinaryDataDestination",
+											"referenceName": "BinaryDataDestination1",
 											"type": "DatasetReference",
 											"parameters": {
 												"Container": {
@@ -381,6 +499,52 @@
 											}
 										}
 									]
+								},
+								{
+									"name": "DeleteAFile",
+									"description": "Delete a file from the source store",
+									"type": "Delete",
+									"dependsOn": [
+										{
+											"activity": "CopyAFile",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"dataset": {
+											"referenceName": "BinaryDataSource_File1",
+											"type": "DatasetReference",
+											"parameters": {
+												"FolderPath": {
+													"value": "@pipeline().parameters.SourceStore_Location",
+													"type": "Expression"
+												},
+												"Directory": {
+													"value": "@pipeline().parameters.SourceStore_Directory",
+													"type": "Expression"
+												},
+												"filename": {
+													"value": "@item().name",
+													"type": "Expression"
+												}
+											}
+										},
+										"enableLogging": false,
+										"storeSettings": {
+											"type": "FileServerReadSettings",
+											"recursive": true
+										}
+									}
 								}
 							]
 						}
@@ -427,9 +591,9 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/BinaryDataSource_Folder')]",
-				"[concat(variables('factoryId'), '/datasets/BinaryDataSource_File')]",
-				"[concat(variables('factoryId'), '/datasets/BinaryDataDestination')]"
+				"[concat(variables('factoryId'), '/datasets/BinaryDataSource_Folder1')]",
+				"[concat(variables('factoryId'), '/datasets/BinaryDataSource_File1')]",
+				"[concat(variables('factoryId'), '/datasets/BinaryDataDestination1')]"
 			]
 		}
 	]
