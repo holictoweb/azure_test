@@ -1,0 +1,17 @@
+{
+	"name": "toonefilesystem",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "FileServer",
+		"typeProperties": {
+			"host": "E:\\Data\\",
+			"userId": "admin_orange",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIxMWY3MjQ5ZC1jYmJjLTQ2ZmQtOGVkOS1mZGQ2NzI3YTZkMDUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "tooneselfir",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
