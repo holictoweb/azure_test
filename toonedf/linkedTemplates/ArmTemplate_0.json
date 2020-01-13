@@ -26,6 +26,30 @@
 		"toonefilesystem_properties_typeProperties_userId": {
 			"type": "string",
 			"defaultValue": "admin_orange"
+		},
+		"trigger_toone_01_properties_pipeline_parameters_FolderPath_Source": {
+			"type": "string",
+			"defaultValue": "E:\\"
+		},
+		"trigger_toone_01_properties_pipeline_parameters_Directory_Source": {
+			"type": "string",
+			"defaultValue": "Data"
+		},
+		"trigger_toone_01_properties_pipeline_parameters_FolderPath_Destination": {
+			"type": "string",
+			"defaultValue": "toonedatafactory"
+		},
+		"trigger_toone_01_properties_pipeline_parameters_Directory_Destination": {
+			"type": "string",
+			"defaultValue": "migrationdata"
+		},
+		"trigger_toone_01_properties_pipeline_parameters_LastModified_From": {
+			"type": "string",
+			"defaultValue": "@trigger (). outputs.windowStartTime"
+		},
+		"trigger_toone_01_properties_pipeline_parameters_LastModified_To": {
+			"type": "string",
+			"defaultValue": "@trigger (). outputs.windowEndTime"
 		}
 	},
 	"variables": {
@@ -781,6 +805,43 @@
 				"[concat(variables('factoryId'), '/datasets/BinaryDataSource_Folder1')]",
 				"[concat(variables('factoryId'), '/datasets/BinaryDataSource_File1')]",
 				"[concat(variables('factoryId'), '/datasets/BinaryDataDestination1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/trigger_toone_01')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipeline": {
+					"pipelineReference": {
+						"referenceName": "CopyNewFilesByLastModifiedDate",
+						"type": "PipelineReference"
+					},
+					"parameters": {
+						"FolderPath_Source": "[parameters('trigger_toone_01_properties_pipeline_parameters_FolderPath_Source')]",
+						"Directory_Source": "[parameters('trigger_toone_01_properties_pipeline_parameters_Directory_Source')]",
+						"FolderPath_Destination": "[parameters('trigger_toone_01_properties_pipeline_parameters_FolderPath_Destination')]",
+						"Directory_Destination": "[parameters('trigger_toone_01_properties_pipeline_parameters_Directory_Destination')]",
+						"LastModified_From": "[parameters('trigger_toone_01_properties_pipeline_parameters_LastModified_From')]",
+						"LastModified_To": "[parameters('trigger_toone_01_properties_pipeline_parameters_LastModified_To')]"
+					}
+				},
+				"type": "TumblingWindowTrigger",
+				"typeProperties": {
+					"frequency": "Minute",
+					"interval": 15,
+					"startTime": "2020-01-13T07:42:00.000Z",
+					"delay": "00:00:00",
+					"maxConcurrency": 50,
+					"retryPolicy": {
+						"intervalInSeconds": 30
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/CopyNewFilesByLastModifiedDate')]"
 			]
 		}
 	]

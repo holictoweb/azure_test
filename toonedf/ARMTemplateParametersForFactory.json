@@ -19,6 +19,24 @@
 		},
 		"toonefilesystem_properties_typeProperties_userId": {
 			"value": "admin_orange"
+		},
+		"trigger_toone_01_properties_pipeline_parameters_FolderPath_Source": {
+			"value": "E:\\"
+		},
+		"trigger_toone_01_properties_pipeline_parameters_Directory_Source": {
+			"value": "Data"
+		},
+		"trigger_toone_01_properties_pipeline_parameters_FolderPath_Destination": {
+			"value": "toonedatafactory"
+		},
+		"trigger_toone_01_properties_pipeline_parameters_Directory_Destination": {
+			"value": "migrationdata"
+		},
+		"trigger_toone_01_properties_pipeline_parameters_LastModified_From": {
+			"value": "@trigger (). outputs.windowStartTime"
+		},
+		"trigger_toone_01_properties_pipeline_parameters_LastModified_To": {
+			"value": "@trigger (). outputs.windowEndTime"
 		}
 	}
 }
