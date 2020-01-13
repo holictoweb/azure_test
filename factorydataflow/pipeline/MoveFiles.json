@@ -36,7 +36,8 @@
 					],
 					"storeSettings": {
 						"type": "FileServerReadSettings",
-						"recursive": true
+						"recursive": true,
+						"modifiedDatetimeStart": "2019-03-06T00:00:00.000Z"
 					}
 				}
 			},
