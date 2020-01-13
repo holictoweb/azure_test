@@ -8,10 +8,12 @@
 		},
 		"parameters": {
 			"Container": {
-				"type": "String"
+				"type": "String",
+				"defaultValue": "toonedatafactory"
 			},
 			"Directory": {
-				"type": "String"
+				"type": "String",
+				"defaultValue": "migrationdata"
 			},
 			"filename": {
 				"type": "string"
