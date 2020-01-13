@@ -1,0 +1,16 @@
+{
+	"name": "sourcetoonejson",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "toonefilesystem",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "FileServerLocation"
+			}
+		}
+	}
+}
