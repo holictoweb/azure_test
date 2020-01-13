@@ -11,7 +11,8 @@
 				"type": "String"
 			},
 			"Directory": {
-				"type": "String"
+				"type": "String",
+				"defaultValue": "source"
 			},
 			"filename": {
 				"type": "string"
