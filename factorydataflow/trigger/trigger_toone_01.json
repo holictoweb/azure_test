@@ -1,0 +1,32 @@
+{
+	"name": "trigger_toone_01",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipeline": {
+			"pipelineReference": {
+				"referenceName": "CopyNewFilesByLastModifiedDate",
+				"type": "PipelineReference"
+			},
+			"parameters": {
+				"FolderPath_Source": "E:\\",
+				"Directory_Source": "Data",
+				"FolderPath_Destination": "toonedatafactory",
+				"Directory_Destination": "migrationdata",
+				"LastModified_From": "@trigger (). outputs.windowStartTime",
+				"LastModified_To": "@trigger (). outputs.windowEndTime"
+			}
+		},
+		"type": "TumblingWindowTrigger",
+		"typeProperties": {
+			"frequency": "Minute",
+			"interval": 15,
+			"startTime": "2020-01-13T07:42:00.000Z",
+			"delay": "00:00:00",
+			"maxConcurrency": 50,
+			"retryPolicy": {
+				"intervalInSeconds": 30
+			}
+		}
+	}
+}
