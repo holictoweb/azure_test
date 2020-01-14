@@ -5,17 +5,32 @@
 		"factoryName": {
 			"value": "toonedf"
 		},
+		"azuredatalakegen2_accountKey": {
+			"value": ""
+		},
+		"azuresqldatabase_connectionString": {
+			"value": ""
+		},
+		"onpremisefilesystem_password": {
+			"value": ""
+		},
 		"tooneadls2_accountKey": {
 			"value": ""
 		},
 		"toonefilesystem_password": {
 			"value": ""
 		},
-		"azuresqldatabase_connectionString": {
-			"value": ""
-		},
 		"vmSqlServer_connectionString": {
 			"value": ""
+		},
+		"azuredatalakegen2_properties_typeProperties_url": {
+			"value": "https://toonestorage02.dfs.core.windows.net"
+		},
+		"onpremisefilesystem_properties_typeProperties_host": {
+			"value": "F:\\datafactoryDEMO"
+		},
+		"onpremisefilesystem_properties_typeProperties_userId": {
+			"value": "admin_orange"
 		},
 		"tooneadls2_properties_typeProperties_url": {
 			"value": "https://toonestorage02.dfs.core.windows.net"

@@ -7,6 +7,18 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "toonedf"
 		},
+		"azuredatalakegen2_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'azuredatalakegen2'"
+		},
+		"azuresqldatabase_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'azuresqldatabase'"
+		},
+		"onpremisefilesystem_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'onpremisefilesystem'"
+		},
 		"tooneadls2_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'tooneadls2'"
@@ -15,13 +27,21 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'toonefilesystem'"
 		},
-		"azuresqldatabase_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'azuresqldatabase'"
-		},
 		"vmSqlServer_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'vmSqlServer'"
+		},
+		"azuredatalakegen2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://toonestorage02.dfs.core.windows.net"
+		},
+		"onpremisefilesystem_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "F:\\datafactoryDEMO"
+		},
+		"onpremisefilesystem_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "admin_orange"
 		},
 		"tooneadls2_properties_typeProperties_url": {
 			"type": "string",
@@ -86,26 +106,59 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"tooneadls2_accountKey": {
-						"value": "[parameters('tooneadls2_accountKey')]"
+					"azuredatalakegen2_accountKey": {
+						"value": "[parameters('azuredatalakegen2_accountKey')]"
 					},
 					"azuresqldatabase_connectionString": {
 						"value": "[parameters('azuresqldatabase_connectionString')]"
 					},
+					"tooneadls2_accountKey": {
+						"value": "[parameters('tooneadls2_accountKey')]"
+					},
 					"vmSqlServer_connectionString": {
 						"value": "[parameters('vmSqlServer_connectionString')]"
+					},
+					"onpremisefilesystem_password": {
+						"value": "[parameters('onpremisefilesystem_password')]"
 					},
 					"toonefilesystem_password": {
 						"value": "[parameters('toonefilesystem_password')]"
 					},
+					"azuredatalakegen2_properties_typeProperties_url": {
+						"value": "[parameters('azuredatalakegen2_properties_typeProperties_url')]"
+					},
 					"tooneadls2_properties_typeProperties_url": {
 						"value": "[parameters('tooneadls2_properties_typeProperties_url')]"
+					},
+					"onpremisefilesystem_properties_typeProperties_host": {
+						"value": "[parameters('onpremisefilesystem_properties_typeProperties_host')]"
+					},
+					"onpremisefilesystem_properties_typeProperties_userId": {
+						"value": "[parameters('onpremisefilesystem_properties_typeProperties_userId')]"
 					},
 					"toonefilesystem_properties_typeProperties_host": {
 						"value": "[parameters('toonefilesystem_properties_typeProperties_host')]"
 					},
 					"toonefilesystem_properties_typeProperties_userId": {
 						"value": "[parameters('toonefilesystem_properties_typeProperties_userId')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
 					},
 					"trigger_toone_01_properties_pipeline_parameters_FolderPath_Source": {
 						"value": "[parameters('trigger_toone_01_properties_pipeline_parameters_FolderPath_Source')]"
@@ -127,7 +180,9 @@
 					}
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'ArmTemplate_0')]"
+			]
 		}
 	]
 }
