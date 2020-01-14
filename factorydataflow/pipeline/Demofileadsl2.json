@@ -1,6 +1,58 @@
 {
 	"name": "Demofileadsl2",
 	"properties": {
+		"activities": [
+			{
+				"name": "Demomovefile",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "BinarySource",
+						"storeSettings": {
+							"type": "FileServerReadSettings",
+							"recursive": true
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "sourcebinary",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"parameters": {
+			"FolderPath_Source": {
+				"type": "string",
+				"defaultValue": "sourcefolder"
+			},
+			"Directory_Source": {
+				"type": "string"
+			},
+			"FolderPath_Destination": {
+				"type": "string"
+			},
+			"Directory_Destination": {
+				"type": "string"
+			},
+			"LastModified_From": {
+				"type": "string"
+			},
+			"LastModified_To": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
