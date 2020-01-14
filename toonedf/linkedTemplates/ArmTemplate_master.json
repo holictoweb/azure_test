@@ -15,6 +15,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'toonefilesystem'"
 		},
+		"azuresqldatabase_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'azuresqldatabase'"
+		},
+		"vmSqlServer_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'vmSqlServer'"
+		},
 		"tooneadls2_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://toonestorage02.dfs.core.windows.net"
@@ -80,6 +88,12 @@
 					},
 					"tooneadls2_accountKey": {
 						"value": "[parameters('tooneadls2_accountKey')]"
+					},
+					"azuresqldatabase_connectionString": {
+						"value": "[parameters('azuresqldatabase_connectionString')]"
+					},
+					"vmSqlServer_connectionString": {
+						"value": "[parameters('vmSqlServer_connectionString')]"
 					},
 					"toonefilesystem_password": {
 						"value": "[parameters('toonefilesystem_password')]"

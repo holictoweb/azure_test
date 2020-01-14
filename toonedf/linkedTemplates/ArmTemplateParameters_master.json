@@ -11,6 +11,12 @@
 		"toonefilesystem_password": {
 			"value": ""
 		},
+		"azuresqldatabase_connectionString": {
+			"value": ""
+		},
+		"vmSqlServer_connectionString": {
+			"value": ""
+		},
 		"tooneadls2_properties_typeProperties_url": {
 			"value": "https://toonestorage02.dfs.core.windows.net"
 		},
