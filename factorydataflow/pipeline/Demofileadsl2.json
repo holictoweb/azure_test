@@ -19,7 +19,25 @@
 						"type": "BinarySource",
 						"storeSettings": {
 							"type": "FileServerReadSettings",
-							"recursive": true
+							"recursive": true,
+							"wildcardFileName": {
+								"value": "*",
+								"type": "Expression"
+							},
+							"modifiedDatetimeStart": {
+								"value": "@{pipeline().parameters.LastModified_From}",
+								"type": "Expression"
+							},
+							"modifiedDatetimeEnd": {
+								"value": "@{pipeline().parameters.LastModified_To}",
+								"type": "Expression"
+							}
+						}
+					},
+					"sink": {
+						"type": "BinarySink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
 						}
 					},
 					"enableStaging": false
@@ -27,7 +45,33 @@
 				"inputs": [
 					{
 						"referenceName": "sourcebinary",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"FolderPath": {
+								"value": "@pipeline().parameters.FolderPath_Source",
+								"type": "Expression"
+							},
+							"Directory": {
+								"value": "@pipeline().parameters.Directory_Source",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "sinkBinary",
+						"type": "DatasetReference",
+						"parameters": {
+							"Container": {
+								"value": "@pipeline().parameters.Directory_Destination",
+								"type": "Expression"
+							},
+							"Directory": {
+								"value": "@pipeline().parameters.FolderPath_Destination",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
