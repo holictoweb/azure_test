@@ -64,11 +64,11 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"Container": {
-								"value": "@pipeline().parameters.Directory_Destination",
+								"value": "@pipeline().parameters.FolderPath_Destination",
 								"type": "Expression"
 							},
 							"Directory": {
-								"value": "@pipeline().parameters.FolderPath_Destination",
+								"value": "@pipeline().parameters.Directory_Destination",
 								"type": "Expression"
 							}
 						}
