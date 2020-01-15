@@ -13,6 +13,33 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
+				{
+				    "name": "Validation_Activity",
+				    "type": "Validation",
+				    "typeProperties": {
+					"dataset": {
+					    "referenceName": "Storage_File",
+					    "type": "DatasetReference"
+					},
+					"timeout": "7.00:00:00",
+					"sleep": 10,
+					"minimumSize": 20
+				    }
+				},
+				{
+				    "name": "Validation_Activity_Folder",
+				    "type": "Validation",
+				    "typeProperties": {
+					"dataset": {
+					    "referenceName": "Storage_Folder",
+					    "type": "DatasetReference"
+					},
+					"timeout": "7.00:00:00",
+					"sleep": 10,
+					"childItems": true
+				    }
+				},
+
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
