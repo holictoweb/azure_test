@@ -79,16 +79,19 @@
 		"parameters": {
 			"FolderPath_Source": {
 				"type": "string",
-				"defaultValue": "sourcefolder"
+				"defaultValue": "E:\\"
 			},
 			"Directory_Source": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "datafactoryDEMO"
 			},
 			"FolderPath_Destination": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "toonedatafactory"
 			},
 			"Directory_Destination": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "demomigration"
 			},
 			"LastModified_From": {
 				"type": "string",
