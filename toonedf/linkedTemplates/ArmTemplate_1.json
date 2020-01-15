@@ -37,6 +37,38 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/BinaryDataSource_Folder1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "It describes the folder in the data source store.",
+				"linkedServiceName": {
+					"referenceName": "toonefilesystem",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"FolderPath": {
+						"type": "String"
+					},
+					"Directory": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation",
+						"folderPath": {
+							"value": "@concat(dataset().FolderPath,'/',dataset().Directory)",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/sourcebinary')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -282,16 +314,19 @@
 				"parameters": {
 					"FolderPath_Source": {
 						"type": "string",
-						"defaultValue": "sourcefolder"
+						"defaultValue": "E:\\"
 					},
 					"Directory_Source": {
-						"type": "string"
+						"type": "string",
+						"defaultValue": "datafactoryDEMO"
 					},
 					"FolderPath_Destination": {
-						"type": "string"
+						"type": "string",
+						"defaultValue": "toonedatafactory"
 					},
 					"Directory_Destination": {
-						"type": "string"
+						"type": "string",
+						"defaultValue": "demomigration"
 					},
 					"LastModified_From": {
 						"type": "string",
@@ -534,7 +569,9 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/BinaryDataSource_Folder1')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/trigger_toone_01')]",
