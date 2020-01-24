@@ -5,6 +5,9 @@
 			"referenceName": "link_tooneadls",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "toone"
+		},
 		"annotations": [],
 		"type": "Json",
 		"typeProperties": {
