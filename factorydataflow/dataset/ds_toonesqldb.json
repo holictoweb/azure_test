@@ -5,6 +5,9 @@
 			"referenceName": "link_toonesqldb",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "toone"
+		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": []
