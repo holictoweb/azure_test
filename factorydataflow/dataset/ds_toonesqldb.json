@@ -1,0 +1,12 @@
+{
+	"name": "ds_toonesqldb",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "link_toonesqldb",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}
