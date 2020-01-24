@@ -1,0 +1,17 @@
+{
+	"name": "ds_toonejson",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "link_tooneadls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "toonecontainer"
+			}
+		}
+	}
+}
